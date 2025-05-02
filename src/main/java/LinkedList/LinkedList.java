@@ -69,7 +69,7 @@ public class LinkedList {
         length = 0;
     }
 
-    public void append(int value){
+    public void append_less_eficient(int value){
         Node newNode = new Node(value);
         Node temp = head;
         if(length == 0){
@@ -87,6 +87,22 @@ public class LinkedList {
 
     }
 
+    public void append(int value){
+        Node newNode = new Node(value);
+        Node temp = head;
+        if(length == 0){
+            head = newNode;
+            tail = newNode;
+            length++;
+        }else{
+
+            tail.next = newNode;
+            tail = newNode;
+            length++;
+        }
+
+    }
+
     public Node removeLast(){
         Node temp = head;
         if(length == 0) return null;
@@ -97,19 +113,22 @@ public class LinkedList {
             return temp;
         }
         else{
-            Node previousNode = temp;
+            Node nodeToBeRemoved = temp;
             temp = temp.next;
             while(temp.next != null){
-                previousNode =  temp;
+                //Find out second last node
+                nodeToBeRemoved =  temp;
                 temp = temp.next;
             }
-            tail = previousNode;
+            tail = nodeToBeRemoved;
             tail.next = null;
             length--;
-            return previousNode;
+            return nodeToBeRemoved;
         }
 
     }
+
+
 
     public void prepend(int data) {
         Node newNode = new Node(data);
@@ -140,7 +159,7 @@ public class LinkedList {
     }
 
     public Node get(int index){
-        if(length == 0 || index > length || index < 0) {
+        if(length == 0 || index >= length || index < 0) {
             System.out.println("Value at Index : " + index + " is not available.");
             return null;
         }
@@ -346,6 +365,10 @@ public class LinkedList {
         }
 
     }
+
+    //This function takes an integer x as a paremeter and modifies current linked list in pace according to the specified criteria.
+    //e.g. 3>8>5>10>2>1   x=5
+    //Output : 3>2>1>8>5>1
     public void partitionList(int x){
         if(head ==null) return;
 
@@ -369,11 +392,13 @@ public class LinkedList {
             current = current.next;
         }
         prev2.next = null;
-        prev1.next = dummy2.next;
-        head = dummy1.next;
+        prev1.next = dummy2.next; //Assigning prev1.next to dummy2.next because first element of dummy2 is 0
+        head = dummy1.next; //Assigning head to dummy1.next because first element of dummy1 is 0
 
     }
 
+
+    //Convert 100 to 8
     public int binaryToDecimal(){
         int decimal = 0;
         Node temp = head;

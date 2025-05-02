@@ -17,6 +17,7 @@ public class Main {
         myLinkedList.append(4);
         myLinkedList.printAll();
 
+
         System.out.println("\nRemove Last");
         myLinkedList.removeLast();
         myLinkedList.printAll();
@@ -52,6 +53,8 @@ public class Main {
         myLinkedList.get(-1);
         myLinkedList.get(0);
         myLinkedList.get(1);
+        myLinkedList.get(2);
+        myLinkedList.get(3);
         myLinkedList.get(5);
 
 

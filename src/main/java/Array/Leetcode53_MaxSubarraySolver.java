@@ -7,7 +7,24 @@ public class Leetcode53_MaxSubarraySolver {
      * @param nums The input array
      * @return The largest sum
      */
+
     public int maxSubarray(int[] nums) {
+        int maxSum = Integer.MIN_VALUE;
+        System.out.println("------------------------");
+        for(int i=0;i<nums.length;i++){
+            int tempSum = nums[i];
+            maxSum = Math.max(maxSum, tempSum);
+            System.out.println("i="+i + " nums[i]=" + nums[i]);
+            for(int j=i+1;j<nums.length;j++){
+                tempSum = tempSum + nums[j];
+                maxSum = Math.max(maxSum, tempSum);
+                System.out.println("j="+j + " nums[j]=" + nums[j] + " tempSum=" + tempSum + " maxSum=" + maxSum);
+            }
+        }
+        return maxSum;
+    }
+
+    public int maxSubarray_Optimized(int[] nums) {
         // Initialize both currentMax and maxSoFar to the first element
         int maxSoFar = nums[0];
         int currentMax = nums[0];
@@ -34,6 +51,7 @@ public class Leetcode53_MaxSubarraySolver {
         Leetcode53_MaxSubarraySolver solver = new Leetcode53_MaxSubarraySolver();
 
         int[][] testCases = {
+                { -2, 1, 2, 3},   // Expected: 6 (subarray: [1,2,3])
                 { -2, 1, -3, 4, -1, 2, 1, -5, 4 },   // Expected: 6 (subarray: [4,-1,2,1])
                 { 1 },                               // Expected: 1
                 { 5, 4, -1, 7, 8 },                  // Expected: 23 (subarray: [5,4,-1,7,8])

@@ -9,7 +9,7 @@ public class Sort_Selection {
     }
 
     public static void main(String[] args){
-        System.out.println("Selection Sort - BigO(n^2)");
+        System.out.println("Selection Sort - BigO(n^2) --> Replace the smallest index in the front");
 
         int arr[] = {7,8,3,1,2};
         printArray(arr);

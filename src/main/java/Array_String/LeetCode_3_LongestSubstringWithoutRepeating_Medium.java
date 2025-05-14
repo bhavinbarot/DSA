@@ -66,6 +66,31 @@ public class LeetCode_3_LongestSubstringWithoutRepeating_Medium {
             }
         }
 
+        //Another approach - Does not work
+        /*
+        maxLength = 1;
+        int tempCounter = 1;
+        System.out.println(chars);
+        for(int i=1;i<chars.length;i++){
+            //Mark the first index
+            //Start at i=1
+            //If char[i] != char[i-1]
+            //Increase the counter.
+            //Set maxLength = Max(maxLength, counter)
+            //else (char[i] != char[i-1])
+            //reset the counter
+            boolean tempBoolean = chars[i]!=chars[i-1];
+            System.out.printf("chars[i]=%c vs chars[i-1]=%c tempBoolean=%b\n",chars[i], chars[i-1], tempBoolean);
+            if(chars[i]!=chars[i-1]){
+                tempCounter++;
+                maxLength = Math.max(maxLength, tempCounter);
+            }else{
+                tempCounter = 1;
+            }
+
+        }
+        */
+
         // Return the maximum length of substring found without repeating characters
         return maxLength;
     }

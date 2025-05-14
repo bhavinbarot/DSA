@@ -53,38 +53,65 @@ public class LeetCode_5_LongestPalindromicSubstring_Medium {
      * @return longest palindromic substring
      */
     public String longestPalindrome(String s) {
-        System.out.println("\n\n"+s);
-        String longestPelimdrom= s.substring(0,1);
-        int longestPelimdromLength = 1;
-        for(int i=0;i<s.length();i++){
-            int startIndex = i;
-            int endIndex = s.length()-1;
-            if(startIndex == endIndex) return s;
+        // Convert the input string to a character array
+        char[] chars = s.toCharArray();
 
-            boolean matchFound = true;
-            int matchEndIndex = 0;
-            while(startIndex < endIndex){
-                if(s.charAt(startIndex) == s.charAt(endIndex)){
+        // Print the input string for debugging purposes
+        System.out.println("\n\n" + s);
+
+        // Initialize the longest palindrome to be the first character of the string
+        String longestPalindrome = s.substring(0, 1);
+
+        // Iterate over the string to find palindromes
+        for (int i = 0; i < chars.length; i++) {
+            // Initialize start and end indices for palindrome comparison
+            int startIndex = i;
+            int endIndex = chars.length - 1;
+
+            // If the start and end indices are the same, we have a single character palindrome, return the string
+            if (startIndex == endIndex) return s;
+
+            boolean matchFound = true; // Flag to check if characters match and form a palindrome
+            int matchEndIndex = 0; // Variable to store the last matching index in the palindrome
+
+            // Compare characters from start and end until they no longer match
+            while (startIndex < endIndex) {
+                if (chars[startIndex] == chars[endIndex]) {
+                    // If characters match, continue checking the next characters inward
                     matchFound = true;
-                    matchEndIndex = Math.max(matchEndIndex, endIndex);
+                    matchEndIndex = Math.max(matchEndIndex, endIndex); // Track the farthest matching index
                     startIndex++;
                     endIndex--;
-                }
-                else{
+                } else {
+                    // If characters do not match, move the end index inward and mark no match found
                     endIndex--;
                     matchFound = false;
                 }
             }
-            if(matchFound){
-                longestPelimdromLength = Math.max(longestPelimdromLength, longestPelimdrom.length());
-                if(s.substring(i, matchEndIndex+1).length() > longestPelimdromLength){
-                    System.out.printf("\nMatch found at index - %d %d - %s", startIndex, matchEndIndex, s.substring(i, matchEndIndex+1));
-                    longestPelimdrom = s.substring(i, matchEndIndex+1);
+
+            // If a palindrome match is found, check if it is the longest so far
+            if (matchFound) {
+                // Store the current palindrome as a substring
+                String currentPalindrome = s.substring(i, matchEndIndex + 1);
+
+                // Store the length of the current palindrome
+                int currentPalindromeLength = currentPalindrome.length();
+
+                // Check if the found palindrome is longer than the previously recorded longest palindrome
+                if (currentPalindromeLength > longestPalindrome.length()) {
+                    // Print match details for debugging
+                    System.out.printf("\nMatch found at index - %d %d - %s", startIndex, matchEndIndex, currentPalindrome);
+
+                    // Update the longest palindrome found so far
+                    longestPalindrome = currentPalindrome;
                 }
             }
         }
-        return longestPelimdrom;
+
+        // Return the longest palindrome found in the string
+        return longestPalindrome;
     }
+
 
     public static void main(String[] args) {
         LeetCode_5_LongestPalindromicSubstring_Medium solver = new LeetCode_5_LongestPalindromicSubstring_Medium();

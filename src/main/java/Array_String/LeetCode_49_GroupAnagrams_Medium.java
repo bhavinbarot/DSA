@@ -34,7 +34,7 @@ import java.util.*;
 public class LeetCode_49_GroupAnagrams_Medium {
 
     public static List<List<String>> groupAnagrams(String[] strs) {
-        Map<String, List<String>> map = new HashMap<>();
+        HashMap<String, List<String>> map = new HashMap<>();
 
         for (int i = 0; i < strs.length; i++) {
             String str = strs[i];

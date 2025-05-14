@@ -52,7 +52,7 @@ public class Classroom_DFS {
 
         for(int i=0; i< graph[currentNode].size();i++){
             Edge e = graph[currentNode].get(i);
-            if(visited[e.destination]!=true){
+            if(!visited[e.destination]){ //If not visited
                 dfs(graph, e.destination, visited);
             }
 
@@ -69,7 +69,7 @@ public class Classroom_DFS {
         System.out.print("Actual   : ");
 
         for(int i=0;i<visited.length;i++){
-            if(visited[i]==false){
+            if(!visited[i]){  //If not visited
                 dfs(graph, i, visited);
             }
         }

@@ -52,10 +52,10 @@ public class Classroom_DFS_AllPathsFromSourceTarget {
 
         for(int i=0; i< graph[currentNode].size();i++){  //Get neighbours of current node
             Edge e = graph[currentNode].get(i);
-            if(!visited[e.destination]){
+            if(!visited[e.destination]){ //If destination has not been visited
                 visited[currentNode] = true;
                 print_all_path_dfs(graph, visited, e.destination , path + currentNode + "->", target);
-                visited[currentNode] = false;
+                visited[currentNode] = false;  //Backtracking
             }
 
         }

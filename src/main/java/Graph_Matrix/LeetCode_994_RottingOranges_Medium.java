@@ -54,18 +54,20 @@ public class LeetCode_994_RottingOranges_Medium {
         int gridColLength = grid[0].length;
         int freshCount = 0;
 
-        Queue<int []> queue = new LinkedList<>();
+        Queue<int []> queue = new LinkedList<>(); //Take a queue of the grid location
 
-        //Add rotten tp queue and count fresh
+        //Add rotten to queue and count fresh
         for(int i=0;i<gridRowLength;i++){
             for(int j=0;j<gridColLength;j++){
-                if(grid[i][j]==2){
-                    queue.add(new int[]{i,j});
+                if(grid[i][j]==2){ //if grid has rotten oranges
+                    queue.add(new int[]{i,j});  //add to co-ordinates to the queue
                 }else if(grid[i][j]==1){
-                    freshCount++;
+                    freshCount++;  //else increase fresh count
                 }
             }
         }
+        //At the end of above method, you have all rotten oranges in a queue, and you have a count of fresh oranges.
+
 
         if(freshCount == 0) return 0;
         int totalMinutes = 0;
@@ -79,15 +81,15 @@ public class LeetCode_994_RottingOranges_Medium {
                 int rottenRow = cell[0];
                 int rottenCol = cell[1];
 
-                //Left
-                if(rottenRow>=0 && rottenRow<gridRowLength && rottenCol-1 >=0 && rottenCol-1<gridColLength && grid[rottenRow][rottenCol-1] == 1){
+                //Left (If you find a fresh orange in on LEFT side, make it rotten and decrease fresh count)
+                if(rottenRow >= 0 && rottenRow < gridRowLength && rottenCol-1 >= 0 && rottenCol-1 < gridColLength && grid[rottenRow][rottenCol-1] == 1){
                     queue.add(new int[]{rottenRow, rottenCol-1});
                     grid[rottenRow][rottenCol-1] = 2;
                     hasRottenThisMinute = true;
                     freshCount--;
                 }
 
-                //Right
+                //Right (If you find a fresh orange in on Right side, make it rotten and decrease fresh count)
                 if(rottenRow>=0 && rottenRow<gridRowLength && rottenCol+1 >=0 && rottenCol+1<gridColLength && grid[rottenRow][rottenCol+1] == 1){
                     queue.add(new int[]{rottenRow, rottenCol+1});
                     grid[rottenRow][rottenCol+1] = 2;
@@ -95,14 +97,14 @@ public class LeetCode_994_RottingOranges_Medium {
                     freshCount--;
                 }
 
-                //Down
+                //Down (If you find a fresh orange in on Down side, make it rotten and decrease fresh count)
                 if(rottenRow+1>=0 && rottenRow+1<gridRowLength && rottenCol >=0 && rottenCol<gridColLength && grid[rottenRow+1][rottenCol] == 1){
                     queue.add(new int[]{rottenRow+1, rottenCol});
                     grid[rottenRow+1][rottenCol] = 2;
                     hasRottenThisMinute = true;
                     freshCount--;
                 }
-                //Up
+                //Up (If you find a fresh orange in on Up side, make it rotten and decrease fresh count)
                 if(rottenRow-1>=0 && rottenRow-1<gridRowLength && rottenCol >=0 && rottenCol<gridColLength && grid[rottenRow-1][rottenCol] == 1){
                     queue.add(new int[]{rottenRow-1, rottenCol});
                     grid[rottenRow-1][rottenCol] = 2;
@@ -112,7 +114,7 @@ public class LeetCode_994_RottingOranges_Medium {
 
             }
             if(hasRottenThisMinute){
-                totalMinutes++;
+                totalMinutes++; //Increase a minute if you could find rotten orange in any direction
             }
 
         }

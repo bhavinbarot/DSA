@@ -75,31 +75,41 @@ public class LeetCode_42_TrappingRainWater_Hard_PENDING {
     // ========== WORKING SOLUTION FOR COMPARISON / VALIDATION ==========
     // Two Pointer Solution (Optimal)
     public static int trapSolution(int[] height) {
+        // Edge case: if the array is null or empty, no water can be trapped
         if (height == null || height.length == 0) return 0;
 
-        int left = 0, right = height.length - 1;
-        int leftMax = 0, rightMax = 0;
-        int totalWater = 0;
+        int left = 0;
+        int right = height.length - 1;           // Two pointers at the start and end of the array
+        int leftMax = 0, rightMax = 0;           // Track max height to the left and right
+        int totalWater = 0;                      // Accumulates total trapped water
 
+        // Continue until pointers meet
         while (left < right) {
+            // Process the shorter boundary first
             if (height[left] < height[right]) {
+                // If current height is greater than or equal to leftMax, update leftMax
                 if (height[left] >= leftMax) {
                     leftMax = height[left];
                 } else {
-                    totalWater += leftMax - height[left];
+                    // Otherwise, water can be trapped at this position
+                    totalWater = totalWater + leftMax - height[left];
                 }
-                left++;
+                left++; // Move the left pointer inward
             } else {
+                // If current height is greater than or equal to rightMax, update rightMax
                 if (height[right] >= rightMax) {
                     rightMax = height[right];
                 } else {
-                    totalWater += rightMax - height[right];
+                    // Otherwise, water can be trapped at this position
+                    totalWater = totalWater + rightMax - height[right];
                 }
-                right--;
+                right--; // Move the right pointer inward
             }
         }
 
+        // Return the total amount of trapped water
         return totalWater;
     }
+
 }
 

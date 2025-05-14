@@ -2,7 +2,7 @@ package Graph_Matrix;
 
 import java.util.ArrayList;
 
-public class Classroom_CycleDetection {
+public class Classroom_CycleDetection_Directed {
     static class Edge{
         int source;
         int destination;
@@ -38,13 +38,13 @@ public class Classroom_CycleDetection {
 
         for(int i=0;i<graph[current].size();i++){
             Edge e = graph[current].get(i);
-            if(recursionStack[e.destination]){
+            if(recursionStack[e.destination]){ //If Destination is already a part of recursion stack (it is part of the cycle)
                 return true;
-            }else if(!visited[e.destination]){
+            }else if(!visited[e.destination]){ //If it has not been visited yet, visit the next part
                 return isCycleDetected(graph, visited, e.destination, recursionStack);
             }
         }
-        recursionStack[current] = false;
+        recursionStack[current] = false; //Make Recursion false (Backtracking)
         return false;
     }
 
@@ -58,8 +58,8 @@ public class Classroom_CycleDetection {
         createGraph(graph);
 
         for(int i=0;i<V;i++){
-            if(!visited[i]){
-                boolean cycleDetected = isCycleDetected(graph, visited,0,recursionStack);
+            if(!visited[i]){ //if not visited
+                boolean cycleDetected = isCycleDetected(graph, visited,i,recursionStack);
                 if(cycleDetected){
                     System.out.println(cycleDetected);
                     break;

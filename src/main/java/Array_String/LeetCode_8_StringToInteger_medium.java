@@ -63,38 +63,87 @@ public class LeetCode_8_StringToInteger_medium {
     private static void runTest(String input, int expected) {
         int result = myAtoi(input);
         System.out.println("Input: \"" + input + "\" | Expected: " + expected + " | Actual: " + result);
+
+        String str = "Hello, World!";
+        int length = str.length();            // Get string length
+        boolean isEmpty = str.isEmpty();      // Check if string is empty
+        //String ➜ char[] (Character Array)
+        char[] charArray = str.toCharArray();
+        //char[] ➜ String
+        char[] charArray = {'H', 'e', 'l', 'l', 'o'};
+        String str = new String(charArray);
+        //Comparison
+        str.equals("Hello");                  // Case-sensitive comparison
+        str.equalsIgnoreCase("hello");        // Case-insensitive comparison
+        str.compareTo("World");               // Lexicographical comparison
+        //Searching
+        str.contains("World");                // true
+        str.indexOf("o");                     // First index of 'o'
+        str.lastIndexOf("o");                 // Last index of 'o'
+        str.startsWith("Hello");             // true
+        str.endsWith("!");                   // true
+        //Substrings & Characters
+        str.charAt(1);                        // 'e'
+        str.substring(7);                     // "World!"
+        str.substring(7, 12);                 // "World"
+        //Modification
+        str.toLowerCase();                    // "hello, world!"
+        str.toUpperCase();                    // "HELLO, WORLD!"
+        str.trim();                           // Removes leading/trailing spaces
+        str.replace("World", "Java");         // "Hello, Java!"
+        str.replaceAll("\\s+", " ");          // Regex-based replace
+        //Splitting & Joining
+        String[] words = str.split(", ");     // ["Hello", "World!"]
+        String joined = String.join("-", words); // "Hello-World!"
+        //Conversion
+        String.valueOf(123);                  // "123"
+        Integer.parseInt("123");              // 123
+
+
     }
 
-    // Placeholder for implementation (simulate real-world coding interview)
     public static int myAtoi(String s) {
-        int sign = 1;
-        int index = 0;
-        int total = 0;
-        //Step 1 : Remove white spaces
-        while(index < s.length() && s.charAt(index) ==' ' ){
-            index++;
+        // Convert the input string into a character array for easier access to individual characters
+        char[] chars = s.toCharArray();
+
+        int sign = 1;   // To track if the number is positive or negative (default is positive)
+        int index = 0;  // To iterate over the character array
+        int total = 0;  // To store the resulting integer value
+
+        // Step 1: Remove leading whitespaces
+        while (index < chars.length && chars[index] == ' ') {
+            index++;  // Skip over leading spaces
         }
 
-        //Step 2 : Track the + or - sign
-        while(index < s.length() && (s.charAt(index) =='+' || s.charAt(index) =='-')){
-            sign = s.charAt(index) == '+' ? 1 : -1;
-            index++;
+        // Step 2: Check for the sign (+ or -)
+        if (index < chars.length && (chars[index] == '+' || chars[index] == '-')) {
+            sign = (chars[index] == '+') ? 1 : -1;  // Set sign to 1 if '+' or -1 if '-'
+            index++;  // Move past the sign character
         }
-        //Step 3 : Find out equivalent number
-        while(index < s.length()){
-            char c = s.charAt(index);
-            if (c<'0' || c>'9') break;  //Break while loop and return total*sign
 
+        // Step 3: Convert the characters to a number
+        while (index < chars.length) {
+            char c = chars[index];
+            // If the character is not a digit, break out of the loop
+            if (c < '0' || c > '9') {
+                break;
+            }
+
+            // Convert the character to a digit (e.g., '3' -> 3)
             int digit = c - '0';
 
-            //If Total is way too big, it would overflow. prevent it before it happens in the next step.
-            if(total > (Integer.MAX_VALUE - digit)/10){
+            // Step 4: Handle potential overflow
+            if (total > (Integer.MAX_VALUE - digit) / 10) {
+                // If adding the digit causes an overflow, return the appropriate boundary value
                 return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
 
+            // Update the total value (shift the previous total by 10 and add the new digit)
             total = total * 10 + digit;
-            index++;
+            index++;  // Move to the next character
         }
+
+        // Step 5: Apply the sign and return the final result
         total = total * sign;
         return total;
     }
